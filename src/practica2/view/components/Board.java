@@ -69,7 +69,7 @@ public class Board extends JSquarePanel {
                 Cell cell = new Cell();
 
                 if ((col % 2 == 1 && row % 2 == 1) || (col % 2 == 0 && row % 2 == 0))
-                    cell.setBlack(true);
+                    cell.setBlack(false);
                 else
                     cell.setBlack(false);
 
