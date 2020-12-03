@@ -2,7 +2,7 @@ package practica2.model.pieces;
 
 import practica2.model.pieces.base.Piece;
 
-public class Knight extends Piece {
+public class Monster extends Piece {
 
     private final static int[][] VALID_MOVES = {
             {2, 1}, {2, -1},
@@ -13,8 +13,8 @@ public class Knight extends Piece {
     /**
      * Constructor
      */
-    public Knight() {
-        super("images/knight.png");
+    public Monster() {
+        super("images/monster.png");
         loadMoves(VALID_MOVES);
     }
 }

@@ -46,11 +46,11 @@ public class Cell extends JComponent {
         });
     }
 
-   /* public void resizeImage() {
+    public void resizeImage() {
         int size = getWidth() - Cell.IMAGE_MARGIN * 2;
         Cell.image = piece.getImage().getImage().getScaledInstance(size, size, Image.SCALE_SMOOTH);
         repaint();
-    }*/
+    }
 
     /**
      * Cambiar color de la celda en función de sus parámetros
@@ -168,6 +168,6 @@ public class Cell extends JComponent {
 
     public void setPiece(Piece piece) {
         Cell.piece = piece;
-        //resizeImage();
+        resizeImage();
     }
 }

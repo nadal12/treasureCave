@@ -4,10 +4,14 @@ import com.bulenkov.darcula.DarculaLaf;
 import practica2.ErrorLog;
 import practica2.EventsListener;
 import practica2.MVCEvents;
+import practica2.model.pieces.Hole;
+import practica2.model.pieces.Monster;
+import practica2.model.pieces.Treasure;
 import practica2.view.components.Board;
 
 import javax.swing.*;
 import java.awt.*;
+import java.net.URL;
 
 /**
  * @author nadalLlabres
@@ -51,13 +55,9 @@ public class View extends JFrame implements EventsListener {
      * Variables de estado del programa
      */
     private int status = STATUS_READY;
-    private JButton buttonKnight;
-    private JButton buttonKing;
-    private JButton buttonQueen;
-    private JButton buttonTower;
-    private JButton buttonPawn;
-    private JButton buttonCustom1;
-    private JButton buttonCustom2;
+    private JButton buttonTreasure;
+    private JButton buttonMonster;
+    private JButton buttonHole;
 
     private JButton buttonIncreaseBoardSize;
     private JButton buttonDecreaseBoardSize;
@@ -211,49 +211,34 @@ public class View extends JFrame implements EventsListener {
 
         //Inicialización de los botones del menu lateral
         buttonPlay = new JButton();
+        buttonPlay.setEnabled(false);
         buttonPlay.setRequestFocusEnabled(false);
 
-        buttonKnight = new JButton();
-        buttonKing = new JButton();
-        buttonQueen = new JButton();
-        buttonTower = new JButton();
-        buttonPawn = new JButton();
-        buttonCustom1 = new JButton();
-        buttonCustom2 = new JButton();
+        buttonTreasure = new JButton();
+        buttonMonster = new JButton();
+        buttonHole = new JButton();
 
         //Ajustar el tamaño de las imágenes de los botones
-        //Iconos de Flaticon - Leisure pack: https://www.flaticon.com/packs/leisure-14
-        ImageIcon iconKnight = new ImageIcon(new ImageIcon("images/knight.png").getImage().getScaledInstance(ICON_SIZE, ICON_SIZE, Image.SCALE_SMOOTH));
-        ImageIcon iconKing = new ImageIcon(new ImageIcon("images/king.png").getImage().getScaledInstance(ICON_SIZE, ICON_SIZE, Image.SCALE_SMOOTH));
-        ImageIcon iconQueen = new ImageIcon(new ImageIcon("images/queen.png").getImage().getScaledInstance(ICON_SIZE, ICON_SIZE, Image.SCALE_SMOOTH));
-        ImageIcon iconTower = new ImageIcon(new ImageIcon("images/tower.png").getImage().getScaledInstance(ICON_SIZE, ICON_SIZE, Image.SCALE_SMOOTH));
-        ImageIcon iconPawn = new ImageIcon(new ImageIcon("images/pawn.png").getImage().getScaledInstance(ICON_SIZE, ICON_SIZE, Image.SCALE_SMOOTH));
-        ImageIcon iconCustom1 = new ImageIcon(new ImageIcon("images/custom1.png").getImage().getScaledInstance(CUSTOM_ICON_SIZE, CUSTOM_ICON_SIZE, Image.SCALE_SMOOTH));
-        ImageIcon iconCustom2 = new ImageIcon(new ImageIcon("images/custom2.png").getImage().getScaledInstance(CUSTOM_ICON_SIZE, CUSTOM_ICON_SIZE, Image.SCALE_SMOOTH));
+        //Iconos de Flaticon:
+        // https://www.flaticon.com/free-icon/hole_595608?term=hole&page=1&position=2&related_item_id=595608
+        // https://www.flaticon.com/free-icon/monster_1236413?term=monster&page=1&position=10&related_item_id=1236413
+        // https://www.flaticon.com/free-icon/treasure_2851781?term=treasure&page=1&position=37&related_item_id=2851781
+        ImageIcon treasure = new ImageIcon(new ImageIcon("images/treasure.png").getImage().getScaledInstance(ICON_SIZE, ICON_SIZE, Image.SCALE_SMOOTH));
+        ImageIcon monster = new ImageIcon(new ImageIcon("images/monster.png").getImage().getScaledInstance(ICON_SIZE, ICON_SIZE, Image.SCALE_SMOOTH));
+        ImageIcon hole = new ImageIcon(new ImageIcon("images/hole.png").getImage().getScaledInstance(ICON_SIZE, ICON_SIZE, Image.SCALE_SMOOTH));
 
         //Configurar los iconos
         //Iconos de estado - Ultimate Gnome: https://www.iconfinder.com/iconsets/UltimateGnome
         buttonPlay.setIcon(new ImageIcon("images/icon_play.png"));
-      /*  buttonKnight.setIcon(iconKnight);
-        buttonKing.setIcon(iconKing);
-        buttonQueen.setIcon(iconQueen);
-        buttonTower.setIcon(iconTower);
-        buttonPawn.setIcon(iconPawn);
-        buttonCustom1.setIcon(iconCustom1);
-        buttonCustom2.setIcon(iconCustom2);*/
+        buttonTreasure.setIcon(treasure);
+        buttonMonster.setIcon(monster);
+        buttonHole.setIcon(hole);
 
         //Configurar los ToolTipText
         buttonPlay.setToolTipText("Play");
-       /* buttonKnight.setToolTipText("Knight");
-        buttonKing.setToolTipText("King");
-        buttonQueen.setToolTipText("Queen");
-        buttonTower.setToolTipText("Tower");
-        buttonPawn.setToolTipText("Pawn");
-        buttonCustom1.setToolTipText("Custom 1");
-        buttonCustom2.setToolTipText("Custom 2");
-
-        //Knight seleccionado por defecto
-        buttonKnight.setSelected(true);*/
+        buttonTreasure.setToolTipText("Treasure");
+        buttonMonster.setToolTipText("Monster");
+        buttonHole.setToolTipText("Hole");
 
         //Agregar escuchadores de eventos.
         buttonPlay.addActionListener(evt -> {
@@ -272,92 +257,29 @@ public class View extends JFrame implements EventsListener {
             buttonPlay.setSelected(false);
         });
 
-       /* buttonKnight.addActionListener(evt -> {
-            board.setPiece(new Knight());
-            buttonKnight.setSelected(true);
-            buttonKing.setSelected(false);
-            buttonQueen.setSelected(false);
-            buttonTower.setSelected(false);
-            buttonPawn.setSelected(false);
-            buttonCustom1.setSelected(false);
-            buttonCustom2.setSelected(false);
+        buttonTreasure.addActionListener(evt -> {
+            board.setPiece(new Treasure());
+            setObjectsSelected(false);
+            buttonTreasure.setSelected(true);
         });
 
-        buttonKing.addActionListener(evt -> {
-            board.setPiece(new King());
-            buttonKing.setSelected(true);
-            buttonKnight.setSelected(false);
-            buttonQueen.setSelected(false);
-            buttonTower.setSelected(false);
-            buttonPawn.setSelected(false);
-            buttonCustom1.setSelected(false);
-            buttonCustom2.setSelected(false);
+        buttonMonster.addActionListener(evt -> {
+            board.setPiece(new Monster());
+            setObjectsSelected(false);
+            buttonMonster.setSelected(true);
         });
 
-        buttonQueen.addActionListener(evt -> {
-            board.setPiece(new Queen());
-            buttonQueen.setSelected(true);
-            buttonKnight.setSelected(false);
-            buttonKing.setSelected(false);
-            buttonTower.setSelected(false);
-            buttonPawn.setSelected(false);
-            buttonCustom1.setSelected(false);
-            buttonCustom2.setSelected(false);
+        buttonHole.addActionListener(evt -> {
+            board.setPiece(new Hole());
+            setObjectsSelected(false);
+            buttonHole.setSelected(true);
         });
-
-        buttonTower.addActionListener(evt -> {
-            board.setPiece(new Tower());
-            buttonTower.setSelected(true);
-            buttonKnight.setSelected(false);
-            buttonKing.setSelected(false);
-            buttonQueen.setSelected(false);
-            buttonPawn.setSelected(false);
-            buttonCustom1.setSelected(false);
-            buttonCustom2.setSelected(false);
-        });
-
-        buttonPawn.addActionListener(evt -> {
-            board.setPiece(new Pawn());
-            buttonPawn.setSelected(true);
-            buttonKnight.setSelected(false);
-            buttonKing.setSelected(false);
-            buttonQueen.setSelected(false);
-            buttonTower.setSelected(false);
-            buttonCustom1.setSelected(false);
-            buttonCustom2.setSelected(false);
-        });
-
-        buttonCustom1.addActionListener(evt -> {
-            board.setPiece(customBoard1.getPiece());
-            buttonCustom1.setSelected(true);
-            buttonKnight.setSelected(false);
-            buttonKing.setSelected(false);
-            buttonQueen.setSelected(false);
-            buttonTower.setSelected(false);
-            buttonPawn.setSelected(false);
-            buttonCustom2.setSelected(false);
-        });
-
-        buttonCustom2.addActionListener(evt -> {
-            board.setPiece(customBoard2.getPiece());
-            buttonCustom2.setSelected(true);
-            buttonKnight.setSelected(false);
-            buttonKing.setSelected(false);
-            buttonQueen.setSelected(false);
-            buttonTower.setSelected(false);
-            buttonPawn.setSelected(false);
-            buttonCustom1.setSelected(false);
-        });*/
 
         //Añadir los botones al panel del menú.
-        panelPieces.add(buttonKnight);
         panelPieces.add(buttonPlay);
-        panelPieces.add(buttonKing);
-        panelPieces.add(buttonQueen);
-        panelPieces.add(buttonTower);
-        panelPieces.add(buttonPawn);
-        panelPieces.add(buttonCustom1);
-        panelPieces.add(buttonCustom2);
+        panelPieces.add(buttonTreasure);
+        panelPieces.add(buttonMonster);
+        panelPieces.add(buttonHole);
 
         //Añadir el menú a la izquierda.
         mainPanel.add(panelPieces, BorderLayout.WEST);
@@ -371,15 +293,17 @@ public class View extends JFrame implements EventsListener {
         buttonIncreaseBoardSize.setEnabled(enabled);
         buttonDecreaseBoardSize.setEnabled(enabled);
 
-        buttonQueen.setEnabled(enabled);
-        buttonKnight.setEnabled(enabled);
-        buttonKing.setEnabled(enabled);
-        buttonTower.setEnabled(enabled);
-        buttonPawn.setEnabled(enabled);
-        buttonCustom1.setEnabled(enabled);
-        buttonCustom2.setEnabled(enabled);
+        buttonHole.setEnabled(enabled);
+        buttonTreasure.setEnabled(enabled);
+        buttonMonster.setEnabled(enabled);
 
         board.setCellsEnabled(enabled);
+    }
+
+    private void setObjectsSelected(boolean enabled) {
+        buttonHole.setSelected(enabled);
+        buttonTreasure.setSelected(enabled);
+        buttonMonster.setSelected(enabled);
     }
 
     /**

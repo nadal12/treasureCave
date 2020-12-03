@@ -2,17 +2,17 @@ package practica2.model.pieces;
 
 import practica2.model.pieces.base.Piece;
 
-public class Pawn extends Piece {
+public class Treasure extends Piece {
 
     private final static int[][] VALID_MOVES = {
-            {0, 1}
+            {1, 0}, {1, 1}, {0, 1}, {-1, 1}, {-1, 0}, {-1, -1}, {0, -1}, {-1, -1}
     };
 
     /**
      * Constructor
      */
-    public Pawn() {
-        super("images/pawn.png");
+    public Treasure() {
+        super("images/treasure.png");
         loadMoves(VALID_MOVES);
     }
 }
