@@ -10,7 +10,7 @@ public class View extends JFrame {
 
     private final MVCEvents mvcEvents;
 
-    private static final int DEFAULT_WIDTH = 640;
+    private static final int DEFAULT_WIDTH = 720;
     private static final int DEFAULT_HEIGHT = 620;
     private static final int ICON_SIZE = 50;
 
@@ -33,7 +33,7 @@ public class View extends JFrame {
 
         this.mvcEvents = mvcEvents;
 
-        setLayout(new GridLayout(1, 2));
+        setLayout(new BorderLayout());
         configureUI();
     }
 
@@ -67,12 +67,12 @@ public class View extends JFrame {
         holeButton = new JButton(hole);
         startButton = new JButton(start);
 
-        menu.add(monsterButton);
+        menu.add(startButton);
         menu.add(treasureButton);
         menu.add(holeButton);
-        menu.add(startButton);
+        menu.add(monsterButton);
 
-        add(menu);
+        add(menu, BorderLayout.WEST);
     }
 
     private void setBoardSize() {
@@ -97,6 +97,7 @@ public class View extends JFrame {
      */
     public void start() {
         setSize(new Dimension(DEFAULT_WIDTH, DEFAULT_HEIGHT));
+        setResizable(false);
         setMinimumSize(new Dimension(DEFAULT_WIDTH, DEFAULT_HEIGHT));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pack();
