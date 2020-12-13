@@ -1,13 +1,11 @@
 package practica2.view;
 
-import com.bulenkov.darcula.DarculaLaf;
 import practica2.ErrorLog;
 import practica2.EventsListener;
 import practica2.MVCEvents;
 
 import javax.swing.*;
 import java.awt.*;
-import java.net.URL;
 
 /**
  * @author nadalLlabres
@@ -71,7 +69,7 @@ public class View_bak extends JFrame implements EventsListener {
             //UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 
             //Dark GUI - Darcula by Konstantin Bulenkov -  https://github.com/bulenkov/Darcula
-            UIManager.setLookAndFeel(new DarculaLaf());
+          //  UIManager.setLookAndFeel(new DarculaLaf());
         } catch (Exception e) {
             ErrorLog.logException(e);
         }
