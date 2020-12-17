@@ -1,4 +1,4 @@
-package practica2.view.components.base;
+package practica2.view.components;
 
 import javax.swing.*;
 import java.awt.*;
