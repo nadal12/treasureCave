@@ -10,6 +10,7 @@ import practica2.view.components.Board;
 
 import javax.swing.*;
 import java.awt.*;
+import java.net.URL;
 
 /**
  * @author nadalLlabres

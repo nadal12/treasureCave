@@ -10,6 +10,8 @@ public class Controller implements EventsListener {
 
     private MVCEvents mvcEvents;
 
+    private int tourDelay;
+
     public Controller(MVCEvents mvcEvents) {
         this.mvcEvents = mvcEvents;
     }
@@ -20,6 +22,9 @@ public class Controller implements EventsListener {
 
         if (message.startsWith("Start")) {
 
+        } else if (message.startsWith("Stop")) {
+
         }
     }
+
 }
