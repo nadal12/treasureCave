@@ -1,10 +1,14 @@
 package practica2.view;
 
 import practica2.MVCEvents;
+import practica2.model.Treasure;
+import practica2.model.character.Character;
 import practica2.view.components.Board;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class View extends JFrame {
 
@@ -21,6 +25,8 @@ public class View extends JFrame {
     private JButton treasureButton;
     private JButton holeButton;
     private JButton startButton;
+
+    private Character selectedCharacter = null;
 
     public View(String title, MVCEvents mvcEvents) {
         super(title);
@@ -47,7 +53,7 @@ public class View extends JFrame {
     }
 
     private void configureBoard() {
-        add(new Board(boardSize));
+        add(new Board(boardSize, mvcEvents));
     }
 
     private void configureMenu() {
@@ -67,12 +73,23 @@ public class View extends JFrame {
         holeButton = new JButton(hole);
         startButton = new JButton(start);
 
+        treasureButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                selectedCharacter = new Treasure();
+            }
+        });
+
         menu.add(startButton);
         menu.add(treasureButton);
         menu.add(holeButton);
         menu.add(monsterButton);
 
         add(menu, BorderLayout.WEST);
+    }
+
+    public Character getSelectedCharacter() {
+        return selectedCharacter;
     }
 
     private void setBoardSize() {

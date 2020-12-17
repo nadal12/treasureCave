@@ -15,11 +15,16 @@ public class Cell extends JComponent {
 
     public void setCharacter(Character character) {
         this.character = character;
+        System.out.println(character.getImageURL());
+        repaint();
     }
 
     @Override
     protected void paintComponent(Graphics graphics) {
         super.paintComponent(graphics);
-        graphics.drawImage(character.getImage().getImage().getScaledInstance(getWidth(), getHeight(), Image.SCALE_SMOOTH), 0, 0, this);
+        if (character != null) {
+            System.out.println("pinta");
+            graphics.drawImage(character.getImage().getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH), 0, 0, this);
+        }
     }
 }
