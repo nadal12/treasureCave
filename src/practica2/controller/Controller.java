@@ -9,11 +9,11 @@ import practica2.MVCEvents;
 public class Controller implements EventsListener {
 
     private MVCEvents mvcEvents;
-
-    private int tourDelay;
+    private Inspector inspector;
 
     public Controller(MVCEvents mvcEvents) {
         this.mvcEvents = mvcEvents;
+        inspector = new Inspector(mvcEvents);
     }
 
     @Override
@@ -21,7 +21,7 @@ public class Controller implements EventsListener {
         System.out.println("Mensaje en Control: " + message);
 
         if (message.startsWith("Start")) {
-
+            inspector.start();
         } else if (message.startsWith("Stop")) {
 
         }

@@ -207,7 +207,6 @@ public class View extends JFrame implements EventsListener {
 
         //Inicialización de los botones del menu lateral
         buttonPlay = new JButton();
-        buttonPlay.setEnabled(false);
         buttonPlay.setRequestFocusEnabled(false);
 
         buttonTreasure = new JButton();
@@ -283,8 +282,6 @@ public class View extends JFrame implements EventsListener {
 
     private void setControlsEnabled(boolean enabled) {
         tabbedPane.setSelectedIndex(0);
-        tabbedPane.setEnabledAt(1, enabled);
-        tabbedPane.setEnabledAt(2, enabled);
 
         buttonIncreaseBoardSize.setEnabled(enabled);
         buttonDecreaseBoardSize.setEnabled(enabled);

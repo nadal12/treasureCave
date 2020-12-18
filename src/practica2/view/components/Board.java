@@ -328,4 +328,28 @@ public class Board extends JSquarePanel {
             System.out.println();
         }
     }
+
+    public int[] getAgentCell() {
+        for (int i = 0; i < boardSize; i++) {
+            for (int j = 0; j < boardSize; j++) {
+                if (cells[i][j].isAgent()) {
+                    return new int[]{i, j};
+                }
+            }
+        }
+        return null;
+    }
+
+    public void moveEast() {
+        int [] coordinates = getAgentCell();
+
+        int row = coordinates[0];
+        int col = coordinates[1];
+
+        cells[row][col].setAgent(false);
+
+        cells[row][col + 1].setPiece(new Agent());
+        cells[row][col + 1].setAgent(true);
+
+    }
 }
