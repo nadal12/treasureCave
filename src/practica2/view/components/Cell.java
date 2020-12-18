@@ -23,6 +23,7 @@ public class Cell extends JComponent {
     private boolean monster = false;
     private boolean hole = false;
     private boolean agent = false;
+    private boolean breeze = false;
 
     private static int currentMove = 1;
 
@@ -120,6 +121,16 @@ public class Cell extends JComponent {
         updateColor();
     }
 
+    public void setBreeze(boolean breeze) {
+        this.breeze = breeze;
+
+        if (!breeze) {
+            setBackground(Color.WHITE);
+            image = null;
+        }
+        updateColor();
+    }
+
     public void setMonster(boolean monster) {
         this.monster = monster;
 
@@ -166,6 +177,10 @@ public class Cell extends JComponent {
         return agent;
     }
 
+    public boolean isBreeze() {
+        return breeze;
+    }
+
     public static void setCurrentMove(int currentMove) {
         Cell.currentMove = currentMove;
     }
@@ -188,7 +203,7 @@ public class Cell extends JComponent {
     }
 
     public boolean isEmpty() {
-        return !monster && !treasure && !hole && !agent;
+        return !monster && !treasure && !hole && !agent && !breeze;
     }
 
     @Override

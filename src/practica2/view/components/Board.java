@@ -1,9 +1,6 @@
 package practica2.view.components;
 
-import practica2.model.pieces.Agent;
-import practica2.model.pieces.Hole;
-import practica2.model.pieces.Monster;
-import practica2.model.pieces.Treasure;
+import practica2.model.pieces.*;
 import practica2.model.pieces.base.Piece;
 import practica2.view.components.base.JSquarePanel;
 
@@ -127,14 +124,82 @@ public class Board extends JSquarePanel {
                     if (cells[finalRow][finalCol].isEmpty()) {
                         cells[finalRow][finalCol].setHole(true);
                         cells[finalRow][finalCol].setPiece(new Hole());
+                        setBreezes(finalRow, finalCol);
                     } else if (cells[finalRow][finalCol].isHole()) {
                         cells[finalRow][finalCol].setHole(false);
+                        removeBreezes(finalRow, finalCol);
                     }
                 }
             }
         }
         printBoard();
         System.out.println();
+    }
+
+    private void removeBreezes(int finalRow, int finalCol) {
+        //Arriba
+        if ((finalRow - 1) >= 0) {
+            if (!cells[finalRow - 1][finalCol].isTreasure() && !cells[finalRow - 1][finalCol].isHole() && !cells[finalRow - 1][finalCol].isMonster() && !cells[finalRow - 1][finalCol].isAgent()) {
+                cells[finalRow - 1][finalCol].setBreeze(false);
+            }
+        }
+
+        //Abajo
+        if ((finalRow + 1) < boardSize) {
+            if (!cells[finalRow + 1][finalCol].isTreasure() && !cells[finalRow + 1][finalCol].isHole() && !cells[finalRow + 1][finalCol].isMonster() && !cells[finalRow + 1][finalCol].isAgent()) {
+                cells[finalRow + 1][finalCol].setBreeze(false);
+            }
+        }
+
+        //Derecha
+        if ((finalCol + 1) < boardSize) {
+            if (!cells[finalRow][finalCol + 1].isTreasure() && !cells[finalRow][finalCol + 1].isHole() && !cells[finalRow][finalCol + 1].isMonster() && !cells[finalRow][finalCol + 1].isAgent()) {
+                cells[finalRow][finalCol + 1].setBreeze(false);
+            }
+        }
+
+        //Izquierda
+        if ((finalCol - 1) >= 0) {
+            if (!cells[finalRow][finalCol - 1].isTreasure() && !cells[finalRow][finalCol - 1].isHole() && !cells[finalRow][finalCol - 1].isMonster() && !cells[finalRow][finalCol - 1].isAgent()) {
+                cells[finalRow][finalCol - 1].setBreeze(false);
+            }
+        }
+    }
+
+    private void setBreezes(int finalRow, int finalCol) {
+
+        //Arriba
+        if ((finalRow - 1) >= 0) {
+            if (cells[finalRow - 1][finalCol].isEmpty()) {
+                cells[finalRow - 1][finalCol].setPiece(new Breeze());
+                cells[finalRow - 1][finalCol].setBreeze(true);
+            }
+        }
+
+        //Abajo
+        if ((finalRow + 1) < boardSize) {
+            if (cells[finalRow + 1][finalCol].isEmpty()) {
+                cells[finalRow + 1][finalCol].setPiece(new Breeze());
+                cells[finalRow + 1][finalCol].setBreeze(true);
+            }
+        }
+
+        //Derecha
+        if ((finalCol + 1) < boardSize) {
+            if (cells[finalRow][finalCol + 1].isEmpty()) {
+                cells[finalRow][finalCol + 1].setPiece(new Breeze());
+                cells[finalRow][finalCol + 1].setBreeze(true);
+            }
+        }
+
+        //Izquierda
+        if ((finalCol - 1) >= 0) {
+            if (cells[finalRow][finalCol - 1].isEmpty()) {
+                cells[finalRow][finalCol - 1].setPiece(new Breeze());
+                cells[finalRow][finalCol - 1].setBreeze(true);
+            }
+        }
+
     }
 
     private void removeTreasure() {
