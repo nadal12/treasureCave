@@ -363,7 +363,7 @@ public class View extends JFrame implements EventsListener {
                 buttonPlay.setIcon(new ImageIcon("images/icon_play.png"));
                 buttonPlay.setToolTipText("Play");
                 board.restartBoard();
-                board.restartInitCell();
+                //board.restartInitCell();
                 break;
             case STATUS_RUNNING:
                 updateFeedback("  Working..", "-", "-", true);
@@ -410,14 +410,14 @@ public class View extends JFrame implements EventsListener {
         //Mensaje parada forzada por el usuario
         if (message.startsWith("Stopped")) {
             updateStatus(STATUS_FINISH);
-            board.restartInitCell();
+            //board.restartInitCell();
             JOptionPane.showMessageDialog(this, "Tour stopped by user", "", JOptionPane.PLAIN_MESSAGE, new ImageIcon("images/icon_fail.png"));
         }
 
         //Mensaje de solución no encontrada.
         if (message.startsWith("No solution")) {
             updateStatus(STATUS_FINISH);
-            board.restartInitCell();
+            //board.restartInitCell();
             JOptionPane.showMessageDialog(this, "No solution found for this configuration", "", JOptionPane.PLAIN_MESSAGE, new ImageIcon("images/icon_fail.png"));
         }
 
