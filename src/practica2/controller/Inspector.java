@@ -19,11 +19,25 @@ public class Inspector extends Thread {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            moveEast();
+           if (moveEast()) {
+               System.out.println("east");
+           }
         }
     }
 
-    private void moveEast() {
-        mvcEvents.getView().getBoard().moveEast();
+    private boolean moveEast() {
+        return mvcEvents.getView().getBoard().moveEast();
+    }
+
+    private boolean moveWest() {
+        return mvcEvents.getView().getBoard().moveWest();
+    }
+
+    private boolean moveNorth() {
+        return mvcEvents.getView().getBoard().moveNorth();
+    }
+
+    private boolean moveSouth() {
+        return mvcEvents.getView().getBoard().moveSouth();
     }
 }

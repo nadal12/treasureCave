@@ -340,16 +340,67 @@ public class Board extends JSquarePanel {
         return null;
     }
 
-    public void moveEast() {
+    public boolean moveEast() {
         int [] coordinates = getAgentCell();
 
         int row = coordinates[0];
         int col = coordinates[1];
 
-        cells[row][col].setAgent(false);
+        if (col + 1 < boardSize) {
+            cells[row][col].setAgent(false);
+            cells[row][col + 1].setPiece(new Agent());
+            cells[row][col + 1].setAgent(true);
+            return true;
+        } else {
+            return false;
+        }
+    }
 
-        cells[row][col + 1].setPiece(new Agent());
-        cells[row][col + 1].setAgent(true);
+    public boolean moveWest() {
+        int [] coordinates = getAgentCell();
 
+        int row = coordinates[0];
+        int col = coordinates[1];
+
+        if (col - 1 >= 0) {
+            cells[row][col].setAgent(false);
+            cells[row][col - 1].setPiece(new Agent());
+            cells[row][col - 1].setAgent(true);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean moveNorth() {
+        int [] coordinates = getAgentCell();
+
+        int row = coordinates[0];
+        int col = coordinates[1];
+
+        if (row - 1 >= 0) {
+            cells[row - 1][col].setAgent(false);
+            cells[row - 1][col].setPiece(new Agent());
+            cells[row - 1][col].setAgent(true);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean moveSouth() {
+        int [] coordinates = getAgentCell();
+
+        int row = coordinates[0];
+        int col = coordinates[1];
+
+        if (row + 1 < boardSize) {
+            cells[row + 1][col].setAgent(false);
+            cells[row + 1][col].setPiece(new Agent());
+            cells[row + 1][col].setAgent(true);
+            return true;
+        } else {
+            return false;
+        }
     }
 }
