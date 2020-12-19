@@ -359,7 +359,7 @@ public class View extends JFrame implements EventsListener {
                 setControlsEnabled(true);
                 buttonPlay.setIcon(new ImageIcon("images/icon_play.png"));
                 buttonPlay.setToolTipText("Play");
-                board.restartBoard();
+                //board.restartBoard();
                 //board.restartInitCell();
                 break;
             case STATUS_RUNNING:

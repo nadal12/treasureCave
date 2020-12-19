@@ -267,13 +267,13 @@ public class Board extends JSquarePanel {
     /**
      * Reiniciar todas las casillas del tablero
      */
-    public void restartBoard() {
+ /*   public void restartBoard() {
         for (int row = 0; row < boardSize; row++)
             for (int col = 0; col < boardSize; col++)
                 cells[row][col].setMoveNumber(0);
 
         repaint();
-    }
+    }*/
 
     /**
      * Reiniciar todas las casillas del tablero
@@ -379,7 +379,7 @@ public class Board extends JSquarePanel {
         int col = coordinates[1];
 
         if (row - 1 >= 0) {
-            cells[row - 1][col].setAgent(false);
+            cells[row][col].setAgent(false);
             cells[row - 1][col].setPiece(new Agent());
             cells[row - 1][col].setAgent(true);
             return true;
@@ -395,12 +395,19 @@ public class Board extends JSquarePanel {
         int col = coordinates[1];
 
         if (row + 1 < boardSize) {
-            cells[row + 1][col].setAgent(false);
+            cells[row][col].setAgent(false);
+            restorePreviousImage(row, col);
             cells[row + 1][col].setPiece(new Agent());
             cells[row + 1][col].setAgent(true);
             return true;
         } else {
             return false;
+        }
+    }
+
+    private void restorePreviousImage(int row, int col) {
+        if (cells[row][col].isBreeze()) {
+            cells[row][col].setPiece(new Breeze());
         }
     }
 }

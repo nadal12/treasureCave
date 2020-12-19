@@ -17,7 +17,6 @@ import java.awt.event.ComponentEvent;
 public class Cell extends JComponent {
 
     public final static int IMAGE_MARGIN = 5;
-    public final static int TEXT_MARGIN = 10;
 
     private boolean treasure = false;
     private boolean monster = false;
@@ -25,11 +24,8 @@ public class Cell extends JComponent {
     private boolean agent = false;
     private boolean breeze = false;
 
-    private static int currentMove = 1;
+    private boolean visited = false;
 
-    private int moveNumber = 0;
-
-    // Static para que se comparta con todas las instancias de la clase
     private Piece piece;
     private Image image;
 
@@ -60,8 +56,10 @@ public class Cell extends JComponent {
      * Cambiar color de la celda en función de sus parámetros
      */
     private void updateColor() {
-        if (!monster && !hole && !treasure) {
+        if (!monster && !hole && !treasure && !visited && !agent) {
             setBackground(Color.WHITE);
+        } else if (visited || agent) {
+            setBackground(Color.RED);
         }
 
         repaint();
@@ -77,44 +75,10 @@ public class Cell extends JComponent {
         graphics.drawImage(image, IMAGE_MARGIN, IMAGE_MARGIN, this);
     }
 
-    /**
-     * Función para obtener el máximo tamaño de fuente en función del tamaño de la celda
-     *
-     * Código modificado a partir de un snippet de StackOverflow:
-     * https://stackoverflow.com/a/2715279/710274
-     *
-     * @param bigNumber true si el texto a escribir es de 3 cifras
-     * @return máximo tamaño de fuente para la celda
-     */
-    private int getMaxFontSize(boolean bigNumber) {
-
-        Font font = new Font("Verdana", Font.BOLD + Font.ITALIC, 100);
-        int stringWidth = getFontMetrics(font).stringWidth(bigNumber ? "100" : "10");
-        double widthRatio = getWidth() / (double) stringWidth;
-
-        return (int) (font.getSize() * widthRatio) - (bigNumber ? TEXT_MARGIN / 2 : TEXT_MARGIN);
-    }
-
-    /*
-     * GETTERS & SETTERS
-     */
-
-    /*public void setInit(boolean init) {
-
-        //La casilla inicial no puede estar bloqueada
-        if (init)
-            this.blocked = false;
-
-        moveNumber = init ? 1 : 0;
-        this.init = init;
-
-        updateColor();
-    }*/
-
     public void setTreasure(boolean treasure) {
         this.treasure = treasure;
 
-        if (!treasure) {
+        if (!treasure && !visited) {
             setBackground(Color.WHITE);
             image = null;
         }
@@ -124,7 +88,7 @@ public class Cell extends JComponent {
     public void setBreeze(boolean breeze) {
         this.breeze = breeze;
 
-        if (!breeze) {
+        if (!breeze && !visited) {
             setBackground(Color.WHITE);
             image = null;
         }
@@ -134,7 +98,7 @@ public class Cell extends JComponent {
     public void setMonster(boolean monster) {
         this.monster = monster;
 
-        if (!monster) {
+        if (!monster && !visited) {
             setBackground(Color.WHITE);
             image = null;
         }
@@ -144,7 +108,7 @@ public class Cell extends JComponent {
     public void setHole(boolean hole) {
         this.hole = hole;
 
-        if (!hole) {
+        if (!hole && !visited) {
             setBackground(Color.WHITE);
             image = null;
         }
@@ -153,12 +117,18 @@ public class Cell extends JComponent {
 
     public void setAgent(boolean agent) {
         this.agent = agent;
-
         if (!agent) {
-            setBackground(Color.WHITE);
             image = null;
         }
         updateColor();
+    }
+
+    public void setVisited(boolean visited) {
+        this.visited = true;
+    }
+
+    public boolean isVisited() {
+        return visited;
     }
 
     public boolean isTreasure() {
@@ -181,22 +151,6 @@ public class Cell extends JComponent {
         return breeze;
     }
 
-    public static void setCurrentMove(int currentMove) {
-        Cell.currentMove = currentMove;
-    }
-
-    public boolean isCurrentMove() {
-        return moveNumber == currentMove;
-    }
-
-    public int getMoveNumber() {
-        return moveNumber;
-    }
-
-    public void setMoveNumber(int moveNumber) {
-        this.moveNumber = moveNumber;
-    }
-
     public void setPiece(Piece piece) {
         this.piece = piece;
         resizeImage();
@@ -213,5 +167,9 @@ public class Cell extends JComponent {
                 ", monster=" + monster +
                 ", hole=" + hole +
                 '}';
+    }
+
+    public boolean isStench() {
+        return false;
     }
 }
