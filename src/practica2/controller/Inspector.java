@@ -12,8 +12,8 @@ public class Inspector extends Thread {
     private static final int WEST = 2;
     private static final int NORTH = 3;
 
-    private static final int SPEED = 600;
-    private static final int RETURN_SPEED = 300;
+    private static final int SPEED = 300;
+    private static final int RETURN_SPEED = 100;
     private boolean treasureFound = false;
 
     private boolean stench = false;
@@ -44,9 +44,14 @@ public class Inspector extends Thread {
             } else if (knock) {
                 //Averiguar a que pared ha golpeado.
                 switch (actualDirection) {
-                    case EAST -> {
+                    case EAST, NORTH, SOUTH-> {
                         nextDirection();
                         move();
+                        if (actualIsVisited()) {
+                            for (int i = 0; i < Math.random()*5; i++) {
+                                nextDirection();
+                            }
+                        }
                         nextDirection();
                         sleep(SPEED);
                     }
@@ -62,6 +67,10 @@ public class Inspector extends Thread {
                     }
                 }
                 knock = false;
+            } else {
+                moveOpposite();
+                sleep(SPEED);
+                nextDirection();
             }
         }
 
@@ -153,6 +162,10 @@ public class Inspector extends Thread {
 
     private int [] getAgentCoordinates() {
         return mvcEvents.getView().getBoard().getAgentCell();
+    }
+
+    private boolean actualIsVisited() {
+        return mvcEvents.getView().getBoard().getCells()[getAgentCoordinates()[0]][getAgentCoordinates()[1]].isVisited();
     }
 
     private void sleep(int speed) {

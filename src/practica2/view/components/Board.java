@@ -348,6 +348,7 @@ public class Board extends JSquarePanel {
 
         if (col + 1 < boardSize) {
             cells[row][col].setAgent(false);
+            restorePreviousImage(row, col);
             cells[row][col + 1].setPiece(new Agent());
             cells[row][col + 1].setAgent(true);
             return true;
@@ -364,6 +365,7 @@ public class Board extends JSquarePanel {
 
         if (col - 1 >= 0) {
             cells[row][col].setAgent(false);
+            restorePreviousImage(row, col);
             cells[row][col - 1].setPiece(new Agent());
             cells[row][col - 1].setAgent(true);
             return true;
@@ -380,6 +382,7 @@ public class Board extends JSquarePanel {
 
         if (row - 1 >= 0) {
             cells[row][col].setAgent(false);
+            restorePreviousImage(row, col);
             cells[row - 1][col].setPiece(new Agent());
             cells[row - 1][col].setAgent(true);
             return true;
