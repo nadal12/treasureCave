@@ -99,6 +99,7 @@ public class View extends JFrame implements EventsListener {
         setSize(new Dimension(DEFAULT_WIDTH, DEFAULT_HEIGHT));
         setMinimumSize(new Dimension(DEFAULT_WIDTH, DEFAULT_HEIGHT));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setResizable(false);
         pack();
         setVisible(true);
         revalidate();

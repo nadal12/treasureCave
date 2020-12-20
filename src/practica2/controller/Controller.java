@@ -26,5 +26,4 @@ public class Controller implements EventsListener {
             inspector.stopInspector();
         }
     }
-
 }

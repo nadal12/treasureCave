@@ -8,9 +8,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.Arrays;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class Board extends JSquarePanel {
 
@@ -116,18 +113,20 @@ public class Board extends JSquarePanel {
                     if (cells[finalRow][finalCol].isEmpty()) {
                         cells[finalRow][finalCol].setMonster(true);
                         cells[finalRow][finalCol].setPiece(new Monster());
+                        setPerimeters(finalRow, finalCol, true);
                     } else if (cells[finalRow][finalCol].isMonster()) {
                         cells[finalRow][finalCol].setMonster(false);
+                        removePerimeters(finalRow, finalCol, true);
                     }
                 }
                 case "hole.png" -> {
                     if (cells[finalRow][finalCol].isEmpty()) {
                         cells[finalRow][finalCol].setHole(true);
                         cells[finalRow][finalCol].setPiece(new Hole());
-                        setBreezes(finalRow, finalCol);
+                        setPerimeters(finalRow, finalCol, false);
                     } else if (cells[finalRow][finalCol].isHole()) {
                         cells[finalRow][finalCol].setHole(false);
-                        removeBreezes(finalRow, finalCol);
+                        removePerimeters(finalRow, finalCol, false);
                     }
                 }
             }
@@ -136,67 +135,103 @@ public class Board extends JSquarePanel {
         System.out.println();
     }
 
-    private void removeBreezes(int finalRow, int finalCol) {
+    private void removePerimeters(int finalRow, int finalCol, boolean monster) {
         //Arriba
         if ((finalRow - 1) >= 0) {
             if (!cells[finalRow - 1][finalCol].isTreasure() && !cells[finalRow - 1][finalCol].isHole() && !cells[finalRow - 1][finalCol].isMonster() && !cells[finalRow - 1][finalCol].isAgent()) {
-                cells[finalRow - 1][finalCol].setBreeze(false);
+                if (!monster) {
+                    cells[finalRow - 1][finalCol].setBreeze(false);
+                } else {
+                    cells[finalRow - 1][finalCol].setStench(false);
+                }
             }
         }
 
         //Abajo
         if ((finalRow + 1) < boardSize) {
             if (!cells[finalRow + 1][finalCol].isTreasure() && !cells[finalRow + 1][finalCol].isHole() && !cells[finalRow + 1][finalCol].isMonster() && !cells[finalRow + 1][finalCol].isAgent()) {
-                cells[finalRow + 1][finalCol].setBreeze(false);
+                if (!monster) {
+                    cells[finalRow + 1][finalCol].setBreeze(false);
+                } else {
+                    cells[finalRow + 1][finalCol].setStench(false);
+                }
             }
         }
 
         //Derecha
         if ((finalCol + 1) < boardSize) {
             if (!cells[finalRow][finalCol + 1].isTreasure() && !cells[finalRow][finalCol + 1].isHole() && !cells[finalRow][finalCol + 1].isMonster() && !cells[finalRow][finalCol + 1].isAgent()) {
-                cells[finalRow][finalCol + 1].setBreeze(false);
+               if (!monster) {
+                   cells[finalRow][finalCol + 1].setBreeze(false);
+               } else {
+                   cells[finalRow][finalCol + 1].setStench(false);
+               }
             }
         }
 
         //Izquierda
         if ((finalCol - 1) >= 0) {
             if (!cells[finalRow][finalCol - 1].isTreasure() && !cells[finalRow][finalCol - 1].isHole() && !cells[finalRow][finalCol - 1].isMonster() && !cells[finalRow][finalCol - 1].isAgent()) {
-                cells[finalRow][finalCol - 1].setBreeze(false);
+                if (!monster) {
+                    cells[finalRow][finalCol - 1].setBreeze(false);
+                } else {
+                    cells[finalRow][finalCol - 1].setStench(false);
+                }
             }
         }
     }
 
-    private void setBreezes(int finalRow, int finalCol) {
+    private void setPerimeters(int finalRow, int finalCol, boolean monster) {
 
         //Arriba
         if ((finalRow - 1) >= 0) {
             if (cells[finalRow - 1][finalCol].isEmpty()) {
-                cells[finalRow - 1][finalCol].setPiece(new Breeze());
-                cells[finalRow - 1][finalCol].setBreeze(true);
+                if (!monster) {
+                    cells[finalRow - 1][finalCol].setPiece(new Breeze());
+                    cells[finalRow - 1][finalCol].setBreeze(true);
+                } else {
+                    cells[finalRow - 1][finalCol].setPiece(new Stench());
+                    cells[finalRow - 1][finalCol].setStench(true);
+                }
             }
         }
 
         //Abajo
         if ((finalRow + 1) < boardSize) {
-            if (cells[finalRow + 1][finalCol].isEmpty()) {
-                cells[finalRow + 1][finalCol].setPiece(new Breeze());
-                cells[finalRow + 1][finalCol].setBreeze(true);
+                if (cells[finalRow + 1][finalCol].isEmpty()) {
+                    if (!monster) {
+                        cells[finalRow + 1][finalCol].setPiece(new Breeze());
+                        cells[finalRow + 1][finalCol].setBreeze(true);
+                    } else {
+                        cells[finalRow + 1][finalCol].setPiece(new Stench());
+                        cells[finalRow + 1][finalCol].setStench(true);
+                    }
             }
         }
 
         //Derecha
         if ((finalCol + 1) < boardSize) {
             if (cells[finalRow][finalCol + 1].isEmpty()) {
-                cells[finalRow][finalCol + 1].setPiece(new Breeze());
-                cells[finalRow][finalCol + 1].setBreeze(true);
+                if (!monster) {
+                    cells[finalRow][finalCol + 1].setPiece(new Breeze());
+                    cells[finalRow][finalCol + 1].setBreeze(true);
+                } else {
+                    cells[finalRow][finalCol + 1].setPiece(new Stench());
+                    cells[finalRow][finalCol + 1].setStench(true);
+                }
             }
         }
 
         //Izquierda
         if ((finalCol - 1) >= 0) {
             if (cells[finalRow][finalCol - 1].isEmpty()) {
-                cells[finalRow][finalCol - 1].setPiece(new Breeze());
-                cells[finalRow][finalCol - 1].setBreeze(true);
+                if (!monster) {
+                    cells[finalRow][finalCol - 1].setPiece(new Breeze());
+                    cells[finalRow][finalCol - 1].setBreeze(true);
+                } else {
+                    cells[finalRow][finalCol - 1].setPiece(new Stench());
+                    cells[finalRow][finalCol - 1].setStench(true);
+                }
             }
         }
 
@@ -211,21 +246,6 @@ public class Board extends JSquarePanel {
             }
         }
     }
-
-    /**
-     * Cambiar casilla inicial
-     *
-     * @param initRow fila de la casilla inicial
-     * @param initCol columna de la casilla inicial
-     */
-   /* private void setInitCell(int initRow, int initCol) {
-        //Resetear la anterior casilla inicial
-        for (int row = 0; row < boardSize; row++)
-            for (int col = 0; col < boardSize; col++)
-                cells[row][col].setInit(false);
-
-        cells[initRow][initCol].setInit(true);
-    }*/
 
     /**
      * Aumentar el tamaño del tablero
@@ -263,35 +283,6 @@ public class Board extends JSquarePanel {
             for (int col = 0; col < boardSize; col++)
                 cells[row][col].setEnabled(enabled);
     }
-
-    /**
-     * Reiniciar todas las casillas del tablero
-     */
- /*   public void restartBoard() {
-        for (int row = 0; row < boardSize; row++)
-            for (int col = 0; col < boardSize; col++)
-                cells[row][col].setMoveNumber(0);
-
-        repaint();
-    }*/
-
-    /**
-     * Reiniciar todas las casillas del tablero
-     */
-  /*  public void restartInitCell() {
-        Cell.setCurrentMove(1);
-
-        findInitCell:
-        for (int row = 0; row < boardSize; row++) {
-            for (int col = 0; col < boardSize; col++) {
-                if (cells[row][col].isInit()) {
-                    cells[row][col].setMoveNumber(1);
-                    cells[row][col].repaint();
-                    break findInitCell;
-                }
-            }
-        }
-    }*/
 
     /**
      * Obtener tamaño del tablero

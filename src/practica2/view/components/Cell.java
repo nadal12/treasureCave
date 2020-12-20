@@ -23,6 +23,7 @@ public class Cell extends JComponent {
     private boolean hole = false;
     private boolean agent = false;
     private boolean breeze = false;
+    private boolean stench = false;
 
     private boolean visited = false;
 
@@ -157,7 +158,7 @@ public class Cell extends JComponent {
     }
 
     public boolean isEmpty() {
-        return !monster && !treasure && !hole && !agent && !breeze;
+        return !monster && !treasure && !hole && !agent && !breeze && !stench;
     }
 
     @Override
@@ -179,10 +180,21 @@ public class Cell extends JComponent {
         hole = false;
         agent = false;
         breeze = false;
+        stench = false;
 
         visited = false;
         image = null;
         setBackground(Color.WHITE);
         repaint();
+    }
+
+    public void setStench(boolean stench) {
+        this.stench = stench;
+
+        if (!stench) {
+            // setBackground(Color.WHITE);
+            image = null;
+        }
+        updateColor();
     }
 }
