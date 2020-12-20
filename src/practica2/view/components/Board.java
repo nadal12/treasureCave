@@ -408,7 +408,7 @@ public class Board extends JSquarePanel {
         }
     }
 
-    private void restorePreviousImage(int row, int col) {
+    public void restorePreviousImage(int row, int col) {
         if (cells[row][col].isBreeze()) {
             cells[row][col].setPiece(new Breeze());
         }

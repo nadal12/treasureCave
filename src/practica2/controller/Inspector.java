@@ -12,8 +12,8 @@ public class Inspector extends Thread {
     private static final int WEST = 2;
     private static final int NORTH = 3;
 
-    private static final int SPEED = 200;
-    private static final int RETURN_SPEED = 100;
+    private static final int SPEED = 100;
+    private static final int RETURN_SPEED = 50;
     private boolean treasureFound = false;
 
     private boolean stench = false;
@@ -46,20 +46,40 @@ public class Inspector extends Thread {
                 switch (actualDirection) {
                     case EAST, NORTH, SOUTH-> {
                         nextDirection();
-                        move();
+                        if (!breeze && !stench) {
+                            move();
+                            sleep(SPEED);
+                        }
+                        updatePerceptions(getAgentCoordinates());
+
+                        if (breeze || stench) {
+                            moveOpposite();
+                            sleep(SPEED);
+                        }
+
                         if (actualIsVisited()) {
                             for (int i = 0; i < Math.random()*5; i++) {
                                 nextDirection();
                             }
                         }
                         nextDirection();
-                        sleep(SPEED);
+                        //sleep(SPEED);
                     }
                     case WEST -> {
                         nextDirection();
                         nextDirection();
                         nextDirection();
-                        move();
+                        if (!breeze && !stench) {
+                            move();
+                            sleep(SPEED);
+                        }
+
+                        updatePerceptions(getAgentCoordinates());
+
+                        if (breeze || stench) {
+                            moveOpposite();
+                            sleep(SPEED);
+                        }
 
                         if (actualIsVisited()) {
                             for (int i = 0; i < Math.random()*5; i++) {
