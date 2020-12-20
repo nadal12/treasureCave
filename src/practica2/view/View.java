@@ -156,10 +156,10 @@ public class View extends JFrame implements EventsListener {
         JLabel labelBoardSize = new JLabel(" " + board.getBoardSize() + "x" + board.getBoardSize() + " ");
 
         //Configurar slider de delay
-        JLabel labelDelay = new JLabel("Delay: 0ms ");
+        JLabel labelDelay = new JLabel("Delay: 300ms ");
         labelDelay.setPreferredSize(new Dimension(90, 20));
 
-        JSlider sliderDelay = new JSlider(0, 1000, 1);
+        JSlider sliderDelay = new JSlider(0, 1000, 300);
         sliderDelay.setMajorTickSpacing(100);
         sliderDelay.setMinorTickSpacing(25);
 

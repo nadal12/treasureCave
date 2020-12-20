@@ -24,6 +24,8 @@ public class Controller implements EventsListener {
             inspector.start();
         } else if (message.startsWith("Stop")) {
             inspector.stopInspector();
+        } else if (message.startsWith("Delay")) {
+            inspector.setDelay(Integer.parseInt(message.split(",")[1]));
         }
     }
 }

@@ -2,6 +2,7 @@ package practica2.controller;
 
 import practica2.MVCEvents;
 import practica2.model.pieces.Agent;
+import practica2.model.pieces.Stone;
 
 import java.util.Stack;
 
@@ -12,13 +13,11 @@ public class Inspector extends Thread {
     private static final int WEST = 2;
     private static final int NORTH = 3;
 
-    private static final int SPEED = 100;
-    private static final int RETURN_SPEED = 50;
+    private int delay = 300;
     private boolean treasureFound = false;
 
     private boolean stench = false;
     private boolean breeze = false;
-    private boolean radiance = false;
     private boolean knock = false;
 
     private int actualDirection = EAST;
@@ -41,63 +40,26 @@ public class Inspector extends Thread {
             if (!breeze && !stench && !knock) {
                 move();
                 treasureFound = checkTreasure();
-                sleep(SPEED);
+                sleep();
             } else if (knock && !breeze && !stench) {
                 //Averiguar a que pared ha golpeado.
                 switch (actualDirection) {
                     case EAST, NORTH, SOUTH-> {
-                        nextDirection();
-                        if (!breeze && !stench) {
-                            move();
-                            sleep(SPEED);
-                        }
-                        updatePerceptions(getAgentCoordinates());
-
-                        if (breeze || stench) {
-                            moveOpposite();
-                            sleep(SPEED);
-                        }
-
-                        if (actualIsVisited()) {
-                            for (int i = 0; i < Math.random()*5; i++) {
-                                nextDirection();
-                            }
-                        }
-                        nextDirection();
-                        //sleep(SPEED);
+                        duplicateCode();
                     }
                     case WEST -> {
                         nextDirection();
                         nextDirection();
-                        nextDirection();
-                        if (!breeze && !stench) {
-                            move();
-                            sleep(SPEED);
-                        }
-
-                        updatePerceptions(getAgentCoordinates());
-
-                        if (breeze || stench) {
-                            moveOpposite();
-                            sleep(SPEED);
-                        }
-
-                        if (actualIsVisited()) {
-                            for (int i = 0; i < Math.random()*5; i++) {
-                                nextDirection();
-                            }
-                        }
-
+                        duplicateCode();
                         nextDirection();
                         nextDirection();
-                        nextDirection();
-                        sleep(SPEED);
+                        sleep();
                     }
                 }
                 knock = false;
             } else {
                 moveOpposite();
-                sleep(SPEED);
+                sleep();
                 nextDirection();
             }
         }
@@ -108,6 +70,36 @@ public class Inspector extends Thread {
         }
     }
 
+    private void killMonster() {
+        if (mvcEvents.getView().getBoard().getCells()[getAgentCoordinates()[0]][getAgentCoordinates()[1]].isMonster()) {
+            mvcEvents.getView().getBoard().getCells()[getAgentCoordinates()[0]][getAgentCoordinates()[1]].setMonster(false);
+            mvcEvents.getView().getBoard().getCells()[getAgentCoordinates()[0]][getAgentCoordinates()[1]].setStone(true);
+            mvcEvents.getView().getBoard().getCells()[getAgentCoordinates()[0]][getAgentCoordinates()[1]].setPiece(new Stone());
+        }
+        move();
+    }
+
+    private void duplicateCode() {
+        nextDirection();
+        if (!breeze && !stench) {
+            move();
+            sleep();
+        }
+        updatePerceptions(getAgentCoordinates());
+
+        if (breeze || stench) {
+            moveOpposite();
+            sleep();
+        }
+
+        if (actualIsVisited()) {
+            for (int i = 0; i < Math.random()*5; i++) {
+                nextDirection();
+            }
+        }
+        nextDirection();
+    }
+
     private void treasureFoundMessage() {
         mvcEvents.getView().notify("found");
     }
@@ -116,7 +108,7 @@ public class Inspector extends Thread {
         while (!movements.empty()) {
             Coordinate coordinate = movements.pop();
             moveTo(coordinate.getRow(), coordinate.getCol());
-            sleep(RETURN_SPEED);
+            sleep();
         }
     }
 
@@ -202,11 +194,15 @@ public class Inspector extends Thread {
         this.stop = true;
     }
 
-    private void sleep(int speed) {
+    private void sleep() {
         try {
-            Thread.sleep(speed);
+            Thread.sleep(delay);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+    public void setDelay(int delay) {
+        this.delay = delay;
     }
 }

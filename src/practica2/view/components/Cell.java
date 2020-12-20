@@ -29,6 +29,7 @@ public class Cell extends JComponent {
 
     private Piece piece;
     private Image image;
+    private boolean stone = false;
 
     /**
      * Constructor
@@ -192,6 +193,16 @@ public class Cell extends JComponent {
         this.stench = stench;
 
         if (!stench) {
+            // setBackground(Color.WHITE);
+            image = null;
+        }
+        updateColor();
+    }
+
+    public void setStone(boolean stone) {
+        this.stone = stone;
+
+        if (!stone) {
             // setBackground(Color.WHITE);
             image = null;
         }
