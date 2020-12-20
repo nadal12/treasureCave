@@ -39,6 +39,7 @@ public class View extends JFrame implements EventsListener {
     private JLabel performanceLabel;
     private JLabel loadingAnimation;
     private JTabbedPane tabbedPane;
+    private JSlider sliderDelay;
 
     private Board board;
 
@@ -159,9 +160,10 @@ public class View extends JFrame implements EventsListener {
         JLabel labelDelay = new JLabel("Delay: 300ms ");
         labelDelay.setPreferredSize(new Dimension(90, 20));
 
-        JSlider sliderDelay = new JSlider(0, 1000, 300);
+        sliderDelay = new JSlider(0, 1000, 300);
         sliderDelay.setMajorTickSpacing(100);
         sliderDelay.setMinorTickSpacing(25);
+        sliderDelay.setEnabled(false);
 
         menu.add(labelBoardSizeTitle);
 
@@ -340,6 +342,8 @@ public class View extends JFrame implements EventsListener {
                 board.restartBoard();
                 buttonPlay.setIcon(new ImageIcon("images/icon_play.png"));
                 buttonPlay.setToolTipText("Play");
+                sliderDelay.setValue(300);
+                sliderDelay.setEnabled(false);
             }
             case STATUS_RUNNING -> {
                 updateFeedback("  Working..", "-", "-", true);
@@ -347,6 +351,7 @@ public class View extends JFrame implements EventsListener {
                 buttonPlay.setIcon(new ImageIcon("images/icon_stop.png"));
                 buttonPlay.setToolTipText("Stop");
                 mvcEvents.getController().notify("Start");
+                sliderDelay.setEnabled(true);
             }
             case STATUS_FINISH -> {
                 updateFeedback("Finished", "-", "-", false);
