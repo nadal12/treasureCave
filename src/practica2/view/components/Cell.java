@@ -56,9 +56,9 @@ public class Cell extends JComponent {
      * Cambiar color de la celda en función de sus parámetros
      */
     private void updateColor() {
-        if (!monster && !hole && !treasure && !visited && !agent) {
+        if (!visited && !agent) {
             setBackground(Color.WHITE);
-        } else if (visited || agent) {
+        } else {
             setBackground(Color.RED);
         }
 
@@ -88,8 +88,8 @@ public class Cell extends JComponent {
     public void setBreeze(boolean breeze) {
         this.breeze = breeze;
 
-        if (!breeze && !visited) {
-            setBackground(Color.WHITE);
+        if (!breeze) {
+           // setBackground(Color.WHITE);
             image = null;
         }
         updateColor();

@@ -423,5 +423,11 @@ public class View extends JFrame implements EventsListener {
             String recursiveCalls = message.split(",")[2];
             updateFeedback("-", performance, recursiveCalls, true);
         }
+
+        if (message.startsWith("found")) {
+            updateStatus(STATUS_FINISH);
+            //board.restartInitCell();
+            JOptionPane.showMessageDialog(this, "Treasure found", "", JOptionPane.PLAIN_MESSAGE, new ImageIcon(new ImageIcon("images/treasure.png").getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH)));
+        }
     }
 }
