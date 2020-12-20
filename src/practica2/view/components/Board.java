@@ -402,6 +402,8 @@ public class Board extends JSquarePanel {
     public void restorePreviousImage(int row, int col) {
         if (cells[row][col].isBreeze()) {
             cells[row][col].setPiece(new Breeze());
+        } else if (cells[row][col].isStench()) {
+            cells[row][col].setPiece(new Stench());
         }
     }
 

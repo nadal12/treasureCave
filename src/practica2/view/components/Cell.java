@@ -171,7 +171,7 @@ public class Cell extends JComponent {
     }
 
     public boolean isStench() {
-        return false;
+        return stench;
     }
 
     public void reset() {
