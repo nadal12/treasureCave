@@ -12,7 +12,7 @@ public class Inspector extends Thread {
     private static final int WEST = 2;
     private static final int NORTH = 3;
 
-    private static final int SPEED = 300;
+    private static final int SPEED = 200;
     private static final int RETURN_SPEED = 100;
     private boolean treasureFound = false;
 
@@ -41,7 +41,7 @@ public class Inspector extends Thread {
                 move();
                 treasureFound = checkTreasure();
                 sleep(SPEED);
-            } else if (knock) {
+            } else if (knock && !breeze && !stench) {
                 //Averiguar a que pared ha golpeado.
                 switch (actualDirection) {
                     case EAST, NORTH, SOUTH-> {
@@ -60,6 +60,13 @@ public class Inspector extends Thread {
                         nextDirection();
                         nextDirection();
                         move();
+
+                        if (actualIsVisited()) {
+                            for (int i = 0; i < Math.random()*5; i++) {
+                                nextDirection();
+                            }
+                        }
+
                         nextDirection();
                         nextDirection();
                         nextDirection();
