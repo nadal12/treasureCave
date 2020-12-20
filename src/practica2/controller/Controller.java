@@ -13,7 +13,6 @@ public class Controller implements EventsListener {
 
     public Controller(MVCEvents mvcEvents) {
         this.mvcEvents = mvcEvents;
-        inspector = new Inspector(mvcEvents);
     }
 
     @Override
@@ -21,9 +20,10 @@ public class Controller implements EventsListener {
         System.out.println("Mensaje en Control: " + message);
 
         if (message.startsWith("Start")) {
+            inspector = new Inspector(mvcEvents);
             inspector.start();
         } else if (message.startsWith("Stop")) {
-
+            inspector.stopInspector();
         }
     }
 

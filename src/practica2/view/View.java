@@ -238,16 +238,12 @@ public class View extends JFrame implements EventsListener {
         //Agregar escuchadores de eventos.
         buttonPlay.addActionListener(evt -> {
             switch (status) {
-                case STATUS_READY:
-                    updateStatus(STATUS_RUNNING);
-                    break;
-                case STATUS_RUNNING:
+                case STATUS_READY -> updateStatus(STATUS_RUNNING);
+                case STATUS_RUNNING -> {
                     mvcEvents.getController().notify("Stop");
-                    //updateStatus(STATUS_FINISH);
-                    break;
-                case STATUS_FINISH:
-                    updateStatus(STATUS_READY);
-                    break;
+                    updateStatus(STATUS_FINISH);
+                }
+                case STATUS_FINISH -> updateStatus(STATUS_READY);
             }
             buttonPlay.setSelected(false);
         });
@@ -354,28 +350,27 @@ public class View extends JFrame implements EventsListener {
         this.status = status;
 
         switch (status) {
-            case STATUS_READY:
+            case STATUS_READY -> {
                 updateFeedback("Ready to start", "-", "-", false);
                 setControlsEnabled(true);
+                board.restartBoard();
                 buttonPlay.setIcon(new ImageIcon("images/icon_play.png"));
                 buttonPlay.setToolTipText("Play");
-                //board.restartBoard();
-                //board.restartInitCell();
-                break;
-            case STATUS_RUNNING:
+            }
+            case STATUS_RUNNING -> {
                 updateFeedback("  Working..", "-", "-", true);
                 setControlsEnabled(false);
                 buttonPlay.setIcon(new ImageIcon("images/icon_stop.png"));
                 buttonPlay.setToolTipText("Stop");
                 mvcEvents.getController().notify("Start");
-                break;
-            case STATUS_FINISH:
+            }
+            case STATUS_FINISH -> {
                 updateFeedback("Finished", "-", "-", false);
                 setControlsEnabled(false);
                 buttonPlay.setIcon(new ImageIcon("images/icon_restart.png"));
                 buttonPlay.setToolTipText("Restart");
                 mvcEvents.getController().notify("Stop");
-                break;
+            }
         }
 
     }
@@ -409,13 +404,6 @@ public class View extends JFrame implements EventsListener {
             updateStatus(STATUS_FINISH);
             //board.restartInitCell();
             JOptionPane.showMessageDialog(this, "Tour stopped by user", "", JOptionPane.PLAIN_MESSAGE, new ImageIcon("images/icon_fail.png"));
-        }
-
-        //Mensaje de solución no encontrada.
-        if (message.startsWith("No solution")) {
-            updateStatus(STATUS_FINISH);
-            //board.restartInitCell();
-            JOptionPane.showMessageDialog(this, "No solution found for this configuration", "", JOptionPane.PLAIN_MESSAGE, new ImageIcon("images/icon_fail.png"));
         }
 
         if (message.startsWith("Performance")) {

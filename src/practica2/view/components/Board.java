@@ -413,4 +413,15 @@ public class Board extends JSquarePanel {
             cells[row][col].setPiece(new Breeze());
         }
     }
+
+    public void restartBoard() {
+        for (int i = 0; i < boardSize; i++) {
+            for (int j = 0; j < boardSize; j++) {
+                cells[i][j].reset();
+            }
+        }
+        //Colocar agente
+        cells[0][0].setAgent(true);
+        cells[0][0].setPiece(new Agent());
+    }
 }

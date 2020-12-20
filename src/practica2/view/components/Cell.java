@@ -172,4 +172,17 @@ public class Cell extends JComponent {
     public boolean isStench() {
         return false;
     }
+
+    public void reset() {
+        treasure = false;
+        monster = false;
+        hole = false;
+        agent = false;
+        breeze = false;
+
+        visited = false;
+        image = null;
+        setBackground(Color.WHITE);
+        repaint();
+    }
 }

@@ -26,6 +26,7 @@ public class Inspector extends Thread {
     private Stack<Coordinate> movements = new Stack<>();
 
     private MVCEvents mvcEvents;
+    private boolean stop = false;
 
     public Inspector(MVCEvents mvcEvents) {
         this.mvcEvents = mvcEvents;
@@ -33,7 +34,7 @@ public class Inspector extends Thread {
 
     @Override
     public void run() {
-        while (!treasureFound) {
+        while (!treasureFound && !stop) {
             updatePerceptions(getAgentCoordinates());
 
             //Si no hay nada, avanza en la dirección actual.
@@ -101,8 +102,10 @@ public class Inspector extends Thread {
             }
         }
 
-        dismountPath();
-        treasureFoundMessage();
+        if (!stop) {
+            dismountPath();
+            treasureFoundMessage();
+        }
     }
 
     private void treasureFoundMessage() {
@@ -193,6 +196,10 @@ public class Inspector extends Thread {
 
     private boolean actualIsVisited() {
         return mvcEvents.getView().getBoard().getCells()[getAgentCoordinates()[0]][getAgentCoordinates()[1]].isVisited();
+    }
+
+    public void stopInspector() {
+        this.stop = true;
     }
 
     private void sleep(int speed) {
