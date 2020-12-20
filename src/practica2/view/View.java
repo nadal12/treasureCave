@@ -315,28 +315,11 @@ public class View extends JFrame implements EventsListener {
         updateFeedback("Ready to start", "-", "-", false);
     }
 
-    /**
-     * Actualizar información de la barra inferior
-     *
-     * @param status         estado de programa
-     * @param performance    rendimiento por segundo
-     * @param recursiveCalls llamadas recursivas totales
-     * @param running        estado del algoritmo
-     */
     public void updateFeedback(String status, String performance, String recursiveCalls, boolean running) {
-        if (performance.equals("0"))
-            performance = "-";
-
-        if (recursiveCalls.equals("0"))
-            recursiveCalls = "-";
-
-        if (!status.equals("-"))
+       if (!status.equals("-"))
             statusLabel.setText(status);
 
         performanceLabel.setVisible(this.status != STATUS_READY);
-
-        if (running)
-            performanceLabel.setText("   Recursive calls/second: " + performance + "    Total: " + recursiveCalls);
 
         loadingAnimation.setVisible(running);
 
