@@ -14,6 +14,7 @@ public abstract class Figure {
 
     /**
      * Retorna la imagen de la pieza
+     *
      * @return imagen de la pieza
      */
     public ImageIcon getImage() {

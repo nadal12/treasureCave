@@ -44,7 +44,7 @@ public class Inspector extends Thread {
             } else if (knock && !breeze && !stench) {
                 //Averiguar a que pared ha golpeado.
                 switch (actualDirection) {
-                    case EAST, NORTH, SOUTH-> {
+                    case EAST, NORTH, SOUTH -> {
                         duplicateCode();
                     }
                     case WEST -> {
@@ -93,7 +93,7 @@ public class Inspector extends Thread {
         }
 
         if (actualIsVisited()) {
-            for (int i = 0; i < Math.random()*5; i++) {
+            for (int i = 0; i < Math.random() * 5; i++) {
                 nextDirection();
             }
         }
@@ -129,10 +129,11 @@ public class Inspector extends Thread {
             case EAST -> moveWest();
             case SOUTH -> moveNorth();
             case WEST -> moveEast();
-            case NORTH -> moveSouth();        }
+            case NORTH -> moveSouth();
+        }
     }
 
-    private void updatePerceptions(int [] agentCoordinates) {
+    private void updatePerceptions(int[] agentCoordinates) {
         int row = agentCoordinates[0];
         int col = agentCoordinates[1];
 
@@ -182,7 +183,7 @@ public class Inspector extends Thread {
         return mvcEvents.getView().getBoard().moveSouth();
     }
 
-    private int [] getAgentCoordinates() {
+    private int[] getAgentCoordinates() {
         return mvcEvents.getView().getBoard().getAgentCell();
     }
 

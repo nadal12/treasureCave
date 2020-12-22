@@ -5,7 +5,7 @@ import java.awt.*;
 
 /**
  * Clase que extiende JPanel, con el propósito de mantener siempre el ancho y el alto proporcionales
- *
+ * <p>
  * Código hecho a partir de esta respuesta StackOverflow:
  * https://stackoverflow.com/a/16075907/710274
  */

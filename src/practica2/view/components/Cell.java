@@ -90,7 +90,7 @@ public class Cell extends JComponent {
         this.breeze = breeze;
 
         if (!breeze) {
-           // setBackground(Color.WHITE);
+            // setBackground(Color.WHITE);
             image = null;
         }
         updateColor();

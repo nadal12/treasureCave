@@ -311,7 +311,7 @@ public class View extends JFrame implements EventsListener {
     }
 
     public void updateFeedback(String status, String performance, String recursiveCalls, boolean running) {
-       if (!status.equals("-"))
+        if (!status.equals("-"))
             statusLabel.setText(status);
 
         performanceLabel.setVisible(this.status != STATUS_READY);

@@ -5,7 +5,7 @@ import java.util.Date;
 
 /**
  * Clase para la gestión de errores
- *
+ * <p>
  * Se resgistran los errores en un fichero de texto
  *
  * @author nadalLlabres
@@ -16,6 +16,7 @@ public class ErrorLog {
 
     /**
      * Loggear excepcion
+     *
      * @param ex excepcion
      */
     static public void logException(Exception ex) {

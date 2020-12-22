@@ -76,7 +76,7 @@ public class Board extends JSquarePanel {
                 cells[finalRow][finalCol].addMouseListener(new MouseAdapter() {
                     public void mouseReleased(MouseEvent mouseEvent) {
                         if (SwingUtilities.isLeftMouseButton(mouseEvent))
-                            if ( cells[finalRow][finalCol].isEnabled()) {
+                            if (cells[finalRow][finalCol].isEnabled()) {
                                 setFigure(finalRow, finalCol);
                             }
                     }
@@ -161,11 +161,11 @@ public class Board extends JSquarePanel {
         //Derecha
         if ((finalCol + 1) < boardSize) {
             if (!cells[finalRow][finalCol + 1].isTreasure() && !cells[finalRow][finalCol + 1].isHole() && !cells[finalRow][finalCol + 1].isMonster() && !cells[finalRow][finalCol + 1].isAgent()) {
-               if (!monster) {
-                   cells[finalRow][finalCol + 1].setBreeze(false);
-               } else {
-                   cells[finalRow][finalCol + 1].setStench(false);
-               }
+                if (!monster) {
+                    cells[finalRow][finalCol + 1].setBreeze(false);
+                } else {
+                    cells[finalRow][finalCol + 1].setStench(false);
+                }
             }
         }
 
@@ -198,14 +198,14 @@ public class Board extends JSquarePanel {
 
         //Abajo
         if ((finalRow + 1) < boardSize) {
-                if (cells[finalRow + 1][finalCol].isEmpty()) {
-                    if (!monster) {
-                        cells[finalRow + 1][finalCol].setPiece(new Breeze());
-                        cells[finalRow + 1][finalCol].setBreeze(true);
-                    } else {
-                        cells[finalRow + 1][finalCol].setPiece(new Stench());
-                        cells[finalRow + 1][finalCol].setStench(true);
-                    }
+            if (cells[finalRow + 1][finalCol].isEmpty()) {
+                if (!monster) {
+                    cells[finalRow + 1][finalCol].setPiece(new Breeze());
+                    cells[finalRow + 1][finalCol].setBreeze(true);
+                } else {
+                    cells[finalRow + 1][finalCol].setPiece(new Stench());
+                    cells[finalRow + 1][finalCol].setStench(true);
+                }
             }
         }
 
@@ -332,7 +332,7 @@ public class Board extends JSquarePanel {
     }
 
     public boolean moveEast() {
-        int [] coordinates = getAgentCell();
+        int[] coordinates = getAgentCell();
 
         int row = coordinates[0];
         int col = coordinates[1];
@@ -349,7 +349,7 @@ public class Board extends JSquarePanel {
     }
 
     public boolean moveWest() {
-        int [] coordinates = getAgentCell();
+        int[] coordinates = getAgentCell();
 
         int row = coordinates[0];
         int col = coordinates[1];
@@ -366,7 +366,7 @@ public class Board extends JSquarePanel {
     }
 
     public boolean moveNorth() {
-        int [] coordinates = getAgentCell();
+        int[] coordinates = getAgentCell();
 
         int row = coordinates[0];
         int col = coordinates[1];
@@ -383,7 +383,7 @@ public class Board extends JSquarePanel {
     }
 
     public boolean moveSouth() {
-        int [] coordinates = getAgentCell();
+        int[] coordinates = getAgentCell();
 
         int row = coordinates[0];
         int col = coordinates[1];
