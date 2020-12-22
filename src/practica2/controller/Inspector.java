@@ -45,12 +45,12 @@ public class Inspector extends Thread {
                 //Averiguar a que pared ha golpeado.
                 switch (actualDirection) {
                     case EAST, NORTH, SOUTH -> {
-                        duplicateCode();
+                        inspectMovement();
                     }
                     case WEST -> {
                         nextDirection();
                         nextDirection();
-                        duplicateCode();
+                        inspectMovement();
                         nextDirection();
                         nextDirection();
                         sleep();
@@ -79,7 +79,7 @@ public class Inspector extends Thread {
         move();
     }
 
-    private void duplicateCode() {
+    private void inspectMovement() {
         nextDirection();
         if (!breeze && !stench) {
             move();
@@ -159,27 +159,31 @@ public class Inspector extends Thread {
         }
     }
 
+    private void setVisited() {
+        mvcEvents.getView().getBoard().getCells()[getAgentCoordinates()[0]][getAgentCoordinates()[1]].setVisited(true);
+    }
+
     private boolean moveEast() {
         movements.push(new Coordinate(getAgentCoordinates()[0], getAgentCoordinates()[1]));
-        mvcEvents.getView().getBoard().getCells()[getAgentCoordinates()[0]][getAgentCoordinates()[1]].setVisited(true);
+        setVisited();
         return mvcEvents.getView().getBoard().moveEast();
     }
 
     private boolean moveWest() {
         movements.push(new Coordinate(getAgentCoordinates()[0], getAgentCoordinates()[1]));
-        mvcEvents.getView().getBoard().getCells()[getAgentCoordinates()[0]][getAgentCoordinates()[1]].setVisited(true);
+        setVisited();
         return mvcEvents.getView().getBoard().moveWest();
     }
 
     private boolean moveNorth() {
         movements.push(new Coordinate(getAgentCoordinates()[0], getAgentCoordinates()[1]));
-        mvcEvents.getView().getBoard().getCells()[getAgentCoordinates()[0]][getAgentCoordinates()[1]].setVisited(true);
+        setVisited();
         return mvcEvents.getView().getBoard().moveNorth();
     }
 
     private boolean moveSouth() {
         movements.push(new Coordinate(getAgentCoordinates()[0], getAgentCoordinates()[1]));
-        mvcEvents.getView().getBoard().getCells()[getAgentCoordinates()[0]][getAgentCoordinates()[1]].setVisited(true);
+        setVisited();
         return mvcEvents.getView().getBoard().moveSouth();
     }
 
