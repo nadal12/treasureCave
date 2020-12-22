@@ -120,11 +120,6 @@ public class View extends JFrame implements EventsListener {
         setContentPane(mainPanel);
     }
 
-    /**
-     * Gestión de pestañas obtenida de la web de Oracle:
-     * https://docs.oracle.com/javase/tutorial/uiswing/components/tabbedpane.html
-     * https://docs.oracle.com/javase/tutorial/uiswing/examples/components/TabbedPaneDemoProject/src/components/TabbedPaneDemo.java
-     */
     private void configureTabPanel() {
         //Panel con pestañas
         tabbedPane = new JTabbedPane();
@@ -134,7 +129,7 @@ public class View extends JFrame implements EventsListener {
         panelBoard.setLayout(new GridBagLayout());
         panelBoard.add(board);
 
-        tabbedPane.addTab("    Board    ", panelBoard);
+        tabbedPane.addTab("    Cave    ", panelBoard);
 
         //Border Layout para poner el menú en la parte de arriba
         mainPanel = new JPanel(new BorderLayout(0, 0));
@@ -226,8 +221,7 @@ public class View extends JFrame implements EventsListener {
         ImageIcon hole = new ImageIcon(new ImageIcon("images/hole.png").getImage().getScaledInstance(ICON_SIZE, ICON_SIZE, Image.SCALE_SMOOTH));
 
         //Configurar los iconos
-        //Iconos de estado - Ultimate Gnome: https://www.iconfinder.com/iconsets/UltimateGnome
-        buttonPlay.setIcon(new ImageIcon("images/icon_play.png"));
+        buttonPlay.setIcon(new ImageIcon(new ImageIcon("images/icon_play.png").getImage().getScaledInstance(ICON_SIZE, ICON_SIZE, Image.SCALE_SMOOTH)));
         buttonTreasure.setIcon(treasure);
         buttonMonster.setIcon(monster);
         buttonHole.setIcon(hole);
@@ -340,7 +334,7 @@ public class View extends JFrame implements EventsListener {
                 updateFeedback("Ready to start", "-", "-", false);
                 setControlsEnabled(true);
                 board.restartBoard();
-                buttonPlay.setIcon(new ImageIcon("images/icon_play.png"));
+                buttonPlay.setIcon(new ImageIcon(new ImageIcon("images/icon_play.png").getImage().getScaledInstance(ICON_SIZE, ICON_SIZE, Image.SCALE_SMOOTH)));
                 buttonPlay.setToolTipText("Play");
                 sliderDelay.setValue(300);
                 sliderDelay.setEnabled(false);
@@ -348,7 +342,7 @@ public class View extends JFrame implements EventsListener {
             case STATUS_RUNNING -> {
                 updateFeedback("  Working..", "-", "-", true);
                 setControlsEnabled(false);
-                buttonPlay.setIcon(new ImageIcon("images/icon_stop.png"));
+                buttonPlay.setIcon(new ImageIcon(new ImageIcon("images/icon_stop.png").getImage().getScaledInstance(ICON_SIZE, ICON_SIZE, Image.SCALE_SMOOTH)));
                 buttonPlay.setToolTipText("Stop");
                 mvcEvents.getController().notify("Start");
                 sliderDelay.setEnabled(true);
@@ -356,7 +350,7 @@ public class View extends JFrame implements EventsListener {
             case STATUS_FINISH -> {
                 updateFeedback("Finished", "-", "-", false);
                 setControlsEnabled(false);
-                buttonPlay.setIcon(new ImageIcon("images/icon_restart.png"));
+                buttonPlay.setIcon(new ImageIcon(new ImageIcon("images/icon_restart.png").getImage().getScaledInstance(ICON_SIZE, ICON_SIZE, Image.SCALE_SMOOTH)));
                 buttonPlay.setToolTipText("Restart");
                 mvcEvents.getController().notify("Stop");
             }
