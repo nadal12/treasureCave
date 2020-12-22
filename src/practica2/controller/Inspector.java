@@ -1,8 +1,8 @@
 package practica2.controller;
 
 import practica2.MVCEvents;
-import practica2.model.pieces.Agent;
-import practica2.model.pieces.Stone;
+import practica2.model.figures.Agent;
+import practica2.model.figures.Stone;
 
 import java.util.Stack;
 

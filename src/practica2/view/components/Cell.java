@@ -1,7 +1,6 @@
 package practica2.view.components;
 
-import practica2.model.pieces.Hole;
-import practica2.model.pieces.base.Piece;
+import practica2.model.figures.base.Figure;
 
 import javax.swing.*;
 import java.awt.*;
@@ -27,7 +26,7 @@ public class Cell extends JComponent {
 
     private boolean visited = false;
 
-    private Piece piece;
+    private Figure piece;
     private Image image;
     private boolean stone = false;
 
@@ -153,7 +152,7 @@ public class Cell extends JComponent {
         return breeze;
     }
 
-    public void setPiece(Piece piece) {
+    public void setPiece(Figure piece) {
         this.piece = piece;
         resizeImage();
     }

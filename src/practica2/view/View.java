@@ -3,14 +3,13 @@ package practica2.view;
 import practica2.ErrorLog;
 import practica2.EventsListener;
 import practica2.MVCEvents;
-import practica2.model.pieces.Hole;
-import practica2.model.pieces.Monster;
-import practica2.model.pieces.Treasure;
+import practica2.model.figures.Hole;
+import practica2.model.figures.Monster;
+import practica2.model.figures.Treasure;
 import practica2.view.components.Board;
 
 import javax.swing.*;
 import java.awt.*;
-import java.net.URL;
 
 /**
  * @author nadalLlabres

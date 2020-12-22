@@ -1,7 +1,7 @@
 package practica2.view.components;
 
-import practica2.model.pieces.*;
-import practica2.model.pieces.base.Piece;
+import practica2.model.figures.*;
+import practica2.model.figures.base.Figure;
 import practica2.view.components.base.JSquarePanel;
 
 import javax.swing.*;
@@ -23,7 +23,7 @@ public class Board extends JSquarePanel {
      * Fields
      */
     private int boardSize;
-    private Piece piece;
+    private Figure piece;
 
     /**
      * Array de celdas que representan el tablero
@@ -43,7 +43,7 @@ public class Board extends JSquarePanel {
      *
      * @param piece nueva pieza
      */
-    public void setPiece(Piece piece) {
+    public void setPiece(Figure piece) {
         this.piece = piece;
 
         //Cambiar la pieza en la celda inicial
@@ -307,7 +307,7 @@ public class Board extends JSquarePanel {
      *
      * @return pieza del tablero
      */
-    public Piece getPiece() {
+    public Figure getPiece() {
         return piece;
     }
 
